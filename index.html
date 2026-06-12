@@ -158,7 +158,10 @@ async function loadData() {
     const text = await res.text();
 
     const current = parseCSV(text);
-
+    
+console.log("🔄 refresh ejecutado");
+console.log(current);
+    
 const ultimoPartido = current[0]?.ultimo_partido || "No disponible";
     document.getElementById("ultimoPartido").innerText =
       "Último partido contabilizado: " + ultimoPartido;

@@ -82,11 +82,12 @@ tr {
 
 <script>
 
-  console.log("🚀 script cargado");
+  
+  let previousData = JSON.parse(localStorage.getItem("clasificacion_actual") || "[]");
   
 const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQgkgWNZqMLZpWk2y186_STVeQdTT2-5Aa3PUZWVCIWsA2a_IbTa2lULc71vWTTZA/pub?gid=739936360&single=true&output=csv";
 
-let previousData = JSON.parse(localStorage.getItem("clasificacion") || "[]");
+let previousData = JSON.parse(localStorage.getItem("clasificacion_prev") || "[]");
 
 function parseCSV(text) {
   const lines = text.trim().split("\n");
@@ -172,8 +173,10 @@ const ultimoPartido = current[0]?.ultimo_partido || "No disponible";
 
     render(merged);
 
-    localStorage.setItem("clasificacion", JSON.stringify(current));
-    previousData = current;
+    localStorage.setItem("clasificacion_prev", JSON.stringify(previousData));
+localStorage.setItem("clasificacion_actual", JSON.stringify(current));
+
+previousData = current;
 
     document.getElementById("lastUpdate").innerText =
       "Última actualización: " + new Date().toLocaleTimeString();
